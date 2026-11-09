@@ -2,6 +2,15 @@
 
 Evidence is separated into checks executed during this revision, earlier recorded checks and account-specific steps still missing. Offline rendering and mocks do not prove cloud deployment.
 
+## Repository review: 2026-11-09
+
+- Moved the historical 2026-11-04 Streamlit image into the [local development guide](optional/local-development.md#historical-local-screenshot), with its interface, source file, date and counts stated explicitly. README presents the actual Databricks links and recorded cloud results.
+- Corrected the saved-snapshot command to pass `source_mode=volume`; the default Job mode is `api`. First-deployment examples now explicitly pause the schedule until a manual run passes.
+- Checked the dashboard guide against the versioned asset's actual counters and source-health columns.
+- Added `scripts/check_docs.py` to CI and `make test`. It checks public Markdown links/anchors and rejects links to excluded files or tracked personal study material. Smoke checks covered broken/private/outside links, duplicate headings and fenced examples.
+- Local checks passed after the review: Ruff, 38 tests and all 16 public Markdown files. The workflow repeats these checks from a clean GitHub checkout.
+- Authenticated inspection confirmed the latest Job run succeeded, the published dashboard exists, its draft matches the versioned JSON, and the 07:00 schedule remains active. `bundle plan` reported six unchanged resources and no additions, updates or deletions.
+
 ## Authenticated Databricks verification: 2026-11-09
 
 The project is now deployed and verified on the real workspace. See [live deployment evidence](databricks-deployment.md) and its sanitized JSON record for resource IDs, query results and the successful five-task run.
@@ -38,7 +47,7 @@ This revision translates documentation, source comments, CLI messages, bundle de
 | Databricks SQL renderer | 19 models and 18 checks rendered |
 | BigQuery offline compiler | 19 models rendered; remote queries forbidden |
 | CLI help for SQL helper and Databricks uploader | English help rendered successfully |
-| Bundle YAML inspection | Notebook paths, four-task order and paused schedule checked offline |
+| Initial bundle YAML inspection, before live reconciliation | Notebook paths, four-task order and paused schedule checked offline |
 | Documentation links and language scan | All local links/anchors resolve; no Vietnamese authored text found |
 | Fresh source-only copy: `uv sync --frozen` | Passed with default dependencies and a new virtual environment |
 | Fresh copy: `uv run sea-it-jobs demo` | 19 models + 3 seeds + 18 tests; PASS=40, ERROR=0 |

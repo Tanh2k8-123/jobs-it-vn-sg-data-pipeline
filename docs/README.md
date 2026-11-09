@@ -23,6 +23,8 @@ Use the selected Databricks path:
 
 For the optional GCP implementation, follow [GCP setup](optional/gcp.md), [Kestra operations](optional/kestra.md) and [Looker Studio](optional/looker-studio.md).
 
+For the local DuckDB/dbt/Streamlit path and offline demo, use [local development](optional/local-development.md). Its historical screenshot is explicitly dated and separate from current cloud evidence.
+
 ## File layout
 
 ```text
@@ -43,6 +45,7 @@ docs/
 └── optional/
     ├── gcp.md
     ├── kestra.md
+    ├── local-development.md
     └── looker-studio.md
 ```
 

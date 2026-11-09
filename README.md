@@ -1,5 +1,7 @@
 # Tech Jobs Analytics | Vietnam & Singapore
 
+[![CI](https://github.com/Tanh2k8-123/jobs-it-vn-sg-data-pipeline/actions/workflows/ci.yml/badge.svg)](https://github.com/Tanh2k8-123/jobs-it-vn-sg-data-pipeline/actions/workflows/ci.yml)
+
 A daily batch pipeline for analyzing technology job postings at selected companies in Vietnam and Singapore. Built with Python, SQL and Databricks Free Edition, with a local version for development and testing.
 
 Developed as a Data Engineering Zoomcamp capstone for the 2027 cohort. See the [project review](docs/project-review.md) for implementation readiness and remaining submission evidence.
@@ -66,34 +68,17 @@ Open the printed URL, usually http://localhost:8501. Stop with `Ctrl+C`. If the 
 
 The pipeline fetches live data, saves snapshots, loads DuckDB, runs dbt models/tests and exports dashboard CSVs. It needs internet access but no cloud account. The first collection provides one observation date; a real trend needs collections on later days.
 
-![Local dashboard from real observations](dashboard/screenshots/local-overview.png)
-
 Optional settings live in `.env.example`. Copy it to `.env` when customizing paths or using cloud/Docker: `cp .env.example .env` on Linux/macOS, or `Copy-Item .env.example .env` in PowerShell. Keep `.env` out of Git.
 
 ### Offline demo
 
-After installing dependencies, the demo needs no API or cloud account:
+After installing dependencies, the isolated demo needs no API or cloud account:
 
 ```bash
 uv run sea-it-jobs demo
 ```
 
-Start its dashboard on Linux/macOS/WSL:
-
-```bash
-DATA_DIR=data/demo uv run streamlit run dashboard/app.py
-```
-
-Or in PowerShell:
-
-```powershell
-$env:DATA_DIR = 'data/demo'
-uv run streamlit run dashboard/app.py
-# After stopping the dashboard:
-Remove-Item Env:DATA_DIR
-```
-
-Demo data stays in `data/demo/` and is labeled synthetic. Its dates are fixtures, not market history.
+Use the shell-specific commands in [local development](docs/optional/local-development.md#offline-demonstration) to open its dashboard. The same guide labels the historical Streamlit screenshot and explains its origin. Current cloud evidence is linked under [Live deployment](#live-deployment).
 
 ### Move to Databricks
 
@@ -121,6 +106,7 @@ The source roster in `config/boards.csv` includes ShopBack, Portcast, GRADION an
 | [Databricks setup](docs/deployment/databricks.md) | Authentication, deployment, execution and scheduling |
 | [Validation](docs/validation.md) | Executed checks and missing deployment evidence |
 | [Live deployment evidence](docs/databricks-deployment.md) | Actual Job, dashboard, schedule and warehouse query results |
+| [Local development](docs/optional/local-development.md) | Streamlit, the offline demo and historical screenshot provenance |
 | [Project review](docs/project-review.md) | Assessment against the supplied Zoomcamp rubric |
 | [Submission checklist](docs/submission-checklist.md) | Evidence needed before peer review |
 | [GCP](docs/optional/gcp.md) / [Kestra](docs/optional/kestra.md) / [Looker Studio](docs/optional/looker-studio.md) | Optional alternative deployment |
@@ -130,6 +116,7 @@ The source roster in `config/boards.csv` includes ShopBack, Portcast, GRADION an
 ```bash
 uv sync --frozen --extra cloud --extra dev --extra databricks
 uv run ruff check src tests dashboard scripts
+uv run python scripts/check_docs.py
 uv run pytest -q
 uv run python scripts/render_databricks_sql.py
 uv run python scripts/compile_bigquery_offline.py

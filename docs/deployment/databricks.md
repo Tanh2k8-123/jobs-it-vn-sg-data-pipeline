@@ -35,14 +35,16 @@ The bundle gets its workspace from `--profile` rather than a personal URL in sou
 
 ## 3. Deploy the resources
 
+For the first deployment in a new workspace, keep collection paused until a manual run passes:
+
 ```bash
-databricks bundle validate --profile tech-jobs-free
-databricks bundle plan --profile tech-jobs-free
-databricks bundle deploy --profile tech-jobs-free
+databricks bundle validate --profile tech-jobs-free --var schedule_pause_status=PAUSED
+databricks bundle plan --profile tech-jobs-free --var schedule_pause_status=PAUSED
+databricks bundle deploy --profile tech-jobs-free --var schedule_pause_status=PAUSED
 databricks bundle summary --profile tech-jobs-free
 ```
 
-For a new workspace, first set `schedule_pause_status` to `PAUSED` in `databricks.yml`, or pass `--var schedule_pause_status=PAUSED` to validation, plan and deployment. The checked-in defaults preserve this project's verified API collection and active schedule. Review the plan before deployment; it must not recreate existing schemas/Volumes or delete the dashboard.
+The checked-in defaults preserve this project's verified API collection and active schedule. For an update to the existing deployment, omit the pause override. Review the plan before deployment; it must not recreate existing schemas/Volumes or delete the dashboard.
 
 The default catalog is `workspace`. If yours differs, change `variables.catalog.default` in `databricks.yml` before deployment. Keep that catalog consistent in upload paths and dashboard SQL.
 
@@ -86,7 +88,7 @@ To upload an existing run without collecting again:
 
 ```bash
 uv run python scripts/run_databricks.py --run-id SAVED_RUN
-databricks bundle run tech_jobs_daily --profile tech-jobs-free
+databricks bundle run tech_jobs_daily --profile tech-jobs-free --params source_mode=volume,require_fresh=true
 ```
 
 Use the run ID from its manifest. For an intentionally old snapshot, disable only the freshness requirement for that invocation:
@@ -113,9 +115,9 @@ order by snapshot_date desc, country_code;
 
 VN + SG can exceed the overall count because one posting may link to both countries. Continue with [dashboard setup](dashboard.md).
 
-## 6. Optional: collect inside the notebook
+## 6. Diagnose API connectivity
 
-First test a small request in a serverless notebook:
+The deployed API mode is already verified. To check connectivity in another workspace, test a small request in a serverless notebook:
 
 ```python
 import requests

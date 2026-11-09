@@ -61,7 +61,7 @@ Replace the path with a real snapshot folder. Replay verifies metadata, IDs, cou
 
 For GCP, retry `load --run-id RUN --target cloud`, or replay a `gs://` snapshot as shown in [GCP setup](optional/gcp.md). GCS rejects conflicting contents. BigQuery commits raw postings and run metadata together; staging expires after one hour. Retry transaction conflicts using the same saved run.
 
-For Databricks, upload a saved run with `run_databricks.py --run-id RUN`, then run the Job. Matching existing Volume files are accepted; different bytes are rejected. Old learning data needs the explicit `require_fresh=false` invocation in the setup guide.
+For Databricks, upload a saved run with `run_databricks.py --run-id RUN`, then run the Job with `--params source_mode=volume,require_fresh=true`. Without the mode override, this deployment's default would collect from the API instead. Matching existing Volume files are accepted; different bytes are rejected. Historical snapshots need the explicit `require_fresh=false` invocation in the setup guide.
 
 ## Model failures and stale dashboards
 

@@ -3,6 +3,7 @@ install:
 	uv sync --frozen --extra cloud --extra dev --extra databricks
 test:
 	uv run ruff check src tests dashboard scripts
+	uv run python scripts/check_docs.py
 	uv run pytest -q
 audit:
 	uv run sea-it-jobs audit

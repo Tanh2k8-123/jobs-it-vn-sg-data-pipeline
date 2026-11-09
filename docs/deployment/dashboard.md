@@ -10,12 +10,12 @@ The dataset mapping below also supports manual recreation through **Dashboards â
 
 | Tile | Query | Chart settings |
 |---|---|---|
-| Current metrics | `select * from workspace.tech_jobs_gold.looker_current_overview` | Counters: `tech_postings`, `recruiting_companies`, `coverage_ratio`; display `snapshot_date` |
+| Current metrics | `select * from workspace.tech_jobs_gold.looker_current_overview` | Published counters: `tech_postings`, `recruiting_companies`, `successful_boards` |
 | Postings by country | `select * from workspace.tech_jobs_gold.looker_current_country` | Bar: country code vs tech postings |
 | Postings by role | `select * from workspace.tech_jobs_gold.looker_current_roles` | Bar: role category vs tech postings, colored by country |
-| Source status | `select * from workspace.tech_jobs_gold.looker_current_source_health` | Table: company, snapshot status, latest attempt status/error |
+| Source status | `select * from workspace.tech_jobs_gold.looker_current_source_health` | Table: observation date, company, snapshot status, board postings, latest attempt status and last success time |
 
-The `looker_current_*` names are shared model names, not a requirement to use Looker. Format coverage as a percentage.
+The `looker_current_*` names are shared model names, not a requirement to use Looker. The source-health table and trend show observation dates. `coverage_ratio` and `latest_error` are also available for an optional percentage counter and error-detail column; they are not additional tiles in the current asset.
 
 For the time-series tile:
 

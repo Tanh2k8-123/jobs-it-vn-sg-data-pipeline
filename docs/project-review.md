@@ -39,6 +39,9 @@ No official total is assigned. Cloud resources and scheduled operation are now v
 | Unclear distinction between generated configuration and runtime evidence | Separate implementation, historical validation and pending cloud evidence |
 | Makefile, README and CI linted different scripts | Use one complete `ruff check src tests dashboard scripts` command |
 | Local bundle omitted the live dashboard and enabled incompatible schema prefixes | Track the dashboard JSON/refresh task and preserve canonical resource names |
+| Historical local screenshot could be mistaken for current cloud evidence | Move it to the local guide with a dated provenance caption; keep Databricks links in README |
+| Snapshot replay instructions relied on the API-mode default | Pass Volume mode explicitly and document freshness handling |
+| Documentation links were checked only manually | Run the public-docs checker in CI and the Makefile test target |
 
 ## Remaining priorities
 
