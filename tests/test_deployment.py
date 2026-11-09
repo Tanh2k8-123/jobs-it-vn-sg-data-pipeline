@@ -44,3 +44,38 @@ def test_dashboard_uses_gold_models_and_provides_category_and_time_charts():
     for widget in widgets:
         for query in widget.get("queries", []):
             assert query["query"]["datasetName"] in datasets
+
+
+def test_dashboard_visualizations_use_supported_versions_and_selected_fields():
+    dashboard = json.loads(
+        Path("databricks/dashboards/tech_jobs.lvdash.json").read_text(encoding="utf-8")
+    )
+    versions = {"counter": 2, "table": 2, "bar": 3, "line": 3}
+
+    def encoded_fields(value):
+        if isinstance(value, dict):
+            fields = {value["fieldName"]} if "fieldName" in value else set()
+            for child in value.values():
+                fields.update(encoded_fields(child))
+            return fields
+        if isinstance(value, list):
+            return set().union(*(encoded_fields(child) for child in value))
+        return set()
+
+    for page in dashboard["pages"]:
+        for item in page["layout"]:
+            widget = item["widget"]
+            if "spec" not in widget:
+                continue
+            spec = widget["spec"]
+            assert spec["version"] == versions[spec["widgetType"]], widget["name"]
+            selected = {
+                field["name"]
+                for query in widget["queries"]
+                for field in query["query"]["fields"]
+            }
+            encoded = encoded_fields(spec["encodings"])
+            assert encoded and encoded <= selected, widget["name"]
+            if spec["widgetType"] == "table":
+                assert spec["encodings"]["columns"]
+                assert {"snapshot_date", "company_name", "snapshot_status"} <= encoded

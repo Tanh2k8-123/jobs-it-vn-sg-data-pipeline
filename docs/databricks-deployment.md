@@ -55,3 +55,9 @@ The workspace already contained successful daily runs when authenticated inspect
 Local checks after reconciliation passed: **38 tests** and Ruff. Regression tests cover schema naming, dashboard lifecycle dependencies, dataset references and categorical/time charts.
 
 For future deployments, run `bundle validate`, review `bundle plan`, then deploy using the authenticated profile. Use [setup](deployment/databricks.md) and [recovery commands](runbook.md). The legacy target name `dev` identifies the existing state path; it does not enable development-mode naming behavior.
+
+## Source-health table correction
+
+On 2026-11-09, the table widget was migrated from a partial legacy v1 definition to the current v2 definition after a reported empty visualization. Its SQL returned four company rows and all six required columns. The repaired asset was deployed and republished using the same dashboard ID.
+
+The [dashboard-only refresh](https://dbc-63d22f94-de5b.cloud.databricks.com/?o=7474648485286956#job/468351600295439/run/295115851975887) succeeded. This partial run selected only `refresh_dashboard`; ingestion and quality tasks were intentionally not rerun. The original successful five-task pipeline evidence above remains separate. Regression checks now validate widget versions and selected-field bindings; the local suite passed 39 tests. Browser screenshot verification was unavailable.

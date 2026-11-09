@@ -438,71 +438,36 @@
               }
             ],
             "spec": {
-              "version": 1,
+              "version": 2,
               "widgetType": "table",
               "encodings": {
                 "columns": [
                   {
                     "fieldName": "snapshot_date",
-                    "title": "Observation date",
-                    "displayName": "Observation date",
-                    "type": "date",
-                    "displayAs": "datetime",
-                    "visible": true,
-                    "order": 0
+                    "displayName": "Observation date"
                   },
                   {
                     "fieldName": "company_name",
-                    "title": "Company",
-                    "displayName": "Company",
-                    "type": "string",
-                    "displayAs": "string",
-                    "visible": true,
-                    "order": 1
+                    "displayName": "Company"
                   },
                   {
                     "fieldName": "snapshot_status",
-                    "title": "Snapshot",
-                    "displayName": "Snapshot",
-                    "type": "string",
-                    "displayAs": "string",
-                    "visible": true,
-                    "order": 2
+                    "displayName": "Snapshot"
                   },
                   {
                     "fieldName": "record_count",
-                    "title": "Board postings",
-                    "displayName": "Board postings",
-                    "type": "integer",
-                    "displayAs": "number",
-                    "visible": true,
-                    "order": 3
+                    "displayName": "Board postings"
                   },
                   {
                     "fieldName": "latest_attempt_status",
-                    "title": "Latest attempt",
-                    "displayName": "Latest attempt",
-                    "type": "string",
-                    "displayAs": "string",
-                    "visible": true,
-                    "order": 4
+                    "displayName": "Latest attempt"
                   },
                   {
                     "fieldName": "last_success_at",
-                    "title": "Last success (UTC)",
-                    "displayName": "Last success (UTC)",
-                    "type": "datetime",
-                    "displayAs": "datetime",
-                    "visible": true,
-                    "order": 5
+                    "displayName": "Last success (UTC)"
                   }
                 ]
               },
-              "invisibleColumns": [],
-              "allowHTMLByDefault": false,
-              "condensed": true,
-              "itemsPerPage": 10,
-              "withRowNumber": false,
               "frame": {
                 "showTitle": true,
                 "title": "Observation date and source coverage",

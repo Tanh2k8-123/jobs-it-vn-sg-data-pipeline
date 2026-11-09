@@ -17,6 +17,14 @@ The dataset mapping below also supports manual recreation through **Dashboards â
 
 The `looker_current_*` names are shared model names, not a requirement to use Looker. The source-health table and trend show observation dates. `coverage_ratio` and `latest_error` are also available for an optional percentage counter and error-detail column; they are not additional tiles in the current asset.
 
+## Troubleshoot an empty source-health table
+
+The source-health widget uses the current **table v2** definition. Each column's `fieldName` must match a field selected in `queries[].query.fields`. Its six columns show date, company, snapshot status, board posting count, latest attempt and last success time.
+
+An earlier partial v1 definition produced **Visualization has no fields selected** even though the source query returned four rows. The fix migrates the widget to v2 and removes legacy column options. See the [Databricks table reference](https://github.com/databricks/databricks-agent-skills/blob/main/plugins/databricks/copilot/skills/databricks-aibi-dashboards/references/1-widget-specifications.md#table).
+
+After changing the JSON asset, review the bundle plan, deploy, publish and refresh the dashboard. SQL success and a successful Job do not by themselves validate browser rendering. Regression checks now verify widget versions and that every encoded field is selected by its widget query.
+
 For the time-series tile:
 
 ```sql

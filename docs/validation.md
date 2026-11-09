@@ -2,6 +2,12 @@
 
 Evidence is separated into checks executed during this revision, earlier recorded checks and account-specific steps still missing. Offline rendering and mocks do not prove cloud deployment.
 
+## Source-health table correction: 2026-11-09
+
+The reported blank table used a partial legacy v1 widget definition. The source query itself succeeded with all six requested columns and four company rows. The JSON asset now uses the current table v2 column definition.
+
+The new regression test failed against the old `source_health` spec and passed after migration. Full local checks passed with **39 tests** and Ruff. Authenticated deployment updated only the dashboard, and the same dashboard ID was republished with six column bindings. Browser capture was unavailable in this environment; no visual screenshot verification is claimed. See the [table troubleshooting guide](deployment/dashboard.md#troubleshoot-an-empty-source-health-table).
+
 ## Repository review: 2026-11-09
 
 - Moved the historical 2026-11-04 Streamlit image into the [local development guide](optional/local-development.md#historical-local-screenshot), with its interface, source file, date and counts stated explicitly. README presents the actual Databricks links and recorded cloud results.

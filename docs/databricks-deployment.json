@@ -155,5 +155,28 @@
         }
       ]
     }
+  },
+  "dashboard_table_correction": {
+    "verified_at": "2026-11-09T13:12:53.168937+07:00",
+    "widget_name": "source_health",
+    "widget_version": 2,
+    "selected_fields": [
+      "snapshot_date",
+      "company_name",
+      "snapshot_status",
+      "record_count",
+      "latest_attempt_status",
+      "last_success_at"
+    ],
+    "source_query_row_count": 4,
+    "published_revision_time": "2026-11-09T06:10:15.296Z",
+    "refresh_run_id": 295115851975887,
+    "refresh_run_url": "https://dbc-63d22f94-de5b.cloud.databricks.com/?o=7474648485286956#job/468351600295439/run/295115851975887",
+    "task_scope": [
+      "refresh_dashboard"
+    ],
+    "refresh_result": "SUCCESS",
+    "browser_render_verified": false,
+    "local_tests_passed": 39
   }
 }
