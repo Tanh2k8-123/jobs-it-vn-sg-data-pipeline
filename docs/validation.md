@@ -34,6 +34,21 @@ This revision translates documentation, source comments, CLI messages, bundle de
 
 The fresh copy excluded virtual environments, generated data, dbt outputs and local credentials. It demonstrates source-only demo reproduction on this machine, not a live API/cloud deployment. No new market observations were collected during this revision. The English revision reduced documentation duplication while keeping setup, data rules, failure recovery, optional deployment paths and earlier validation evidence.
 
+## Documentation layout and GitHub checkout: 2026-11-09
+
+Public guides are indexed in [docs/README](README.md), with Databricks instructions under `deployment/` and GCP alternatives under `optional/`.
+
+| Check | Result |
+|---|---|
+| Dedicated Git repository | Project root contains `pyproject.toml`; published to [GitHub](https://github.com/Tanh2k8-123/jobs-it-vn-sg-data-pipeline) |
+| Public Markdown links in a fresh GitHub clone | All checked links/anchors passed; no missing local files |
+| Personal study materials | Excluded by Git, Docker build context and Databricks bundle sync |
+| Public links to private study materials | None |
+| Lint, pytest, Compose config and Databricks SQL renderer after reorganization | Passed; 35 tests, 19 models and 18 integrity queries |
+| [GitHub Actions on the initial source commit](https://github.com/Tanh2k8-123/jobs-it-vn-sg-data-pipeline/actions/runs/42550303274) | Passed on Ubuntu: locked install, Ruff, pytest, both SQL renderers, Compose config and Terraform format/init/validate |
+
+The clone check verifies committed files and documentation links. Live API/cloud deployment still requires the account-specific steps below. Automated checkout validation is available in [GitHub Actions](https://github.com/Tanh2k8-123/jobs-it-vn-sg-data-pipeline/actions).
+
 ## Earlier recorded live validation: 2026-11-04
 
 The previous validation record reports a live Lever audit and local pipeline run `20261104T140000_70f214e5`, observed on 2026-11-04:
@@ -87,6 +102,6 @@ The BigQuery compiler injects anonymous credentials only into the compiler and r
 - An authenticated Databricks `bundle validate`/deploy, successful real Job, scheduled fresh collection or hosted dashboard access.
 - Real GCP plan/apply, GCS writes, BigQuery loads or cloud dbt build; no account credentials are used by offline checks.
 - Docker image builds, live containers or a live Kestra DAG in this environment.
-- A published Looker Studio report, dedicated GitHub clean-clone validation, cohort submission or peer reviews.
+- A published Looker Studio report, live API/cloud quick-start reproduction from a fresh clone, cohort submission or peer reviews.
 
 Confirm catalog permissions, Free Edition API access, serverless dependencies and dashboard sharing in your actual workspace. Follow [Databricks setup](deployment/databricks.md), then complete the [submission checklist](submission-checklist.md).

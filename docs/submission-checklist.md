@@ -5,7 +5,7 @@ Use the supplied rubric and your cohort's final instructions. Code and local suc
 ## Before publishing
 
 - [ ] Check cohort registration, project deadlines and peer-review requirements. The supplied brief requires three peer reviews and describes extra points separately.
-- [ ] Create a dedicated repository whose root contains `pyproject.toml`, `databricks.yml` and README.
+- [x] Create a dedicated repository whose root contains `pyproject.toml`, `databricks.yml` and README.
 - [ ] Review the code and explain pagination, daily snapshot selection and counting yourself. Follow the course's originality rules; generated code still needs your understanding.
 - [ ] Keep `.env`, credentials, raw data, virtual environments and Terraform state out of Git.
 - [ ] Run tests, lint, SQL rendering and setup from a fresh source checkout.
