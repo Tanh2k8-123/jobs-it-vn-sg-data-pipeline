@@ -1,0 +1,13 @@
+# Use with: docker compose -f docker-compose.yml -f docker-compose.cloud.yml ...
+# ADC_DIR must point to a host directory containing application_default_credentials.json.
+services:
+  pipeline:
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: /credentials/application_default_credentials.json
+    volumes:
+      - ${ADC_DIR:?Set ADC_DIR to your gcloud configuration directory}:/credentials:ro
+  kestra:
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: /credentials/application_default_credentials.json
+    volumes:
+      - ${ADC_DIR:?Set ADC_DIR to your gcloud configuration directory}:/credentials:ro

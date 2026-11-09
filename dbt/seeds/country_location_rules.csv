@@ -1,0 +1,3 @@
+country_code,location_pattern
+VN,"(^|[^a-z])(vietnam|viet nam|ho chi minh|hcmc|hanoi|ha noi|da nang|danang)([^a-z]|$)"
+SG,"(^|[^a-z])singapore([^a-z]|$)"

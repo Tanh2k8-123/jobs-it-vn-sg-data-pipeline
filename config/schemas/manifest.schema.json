@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Extraction manifest v1",
+  "type": "object",
+  "required": ["schema_version", "run_id", "board_slug", "snapshot_date", "status", "extraction_status", "record_count", "page_count", "sha256", "started_at", "completed_at", "fetched_at"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "run_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,127}$"},
+    "board_slug": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,127}$"},
+    "snapshot_date": {"type": "string", "format": "date"},
+    "status": {"enum": ["success", "failed"]},
+    "extraction_status": {"enum": ["complete", "incomplete"]},
+    "record_count": {"type": "integer", "minimum": 0},
+    "page_count": {"type": "integer", "minimum": 0},
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "started_at": {"type": "string", "format": "date-time"},
+    "completed_at": {"type": "string", "format": "date-time"},
+    "fetched_at": {"type": "string", "format": "date-time"}
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,3 @@
+project_id  = "your-project-id"
+bucket_name = "your-project-id-tech-jobs-raw"
+location    = "asia-southeast1"

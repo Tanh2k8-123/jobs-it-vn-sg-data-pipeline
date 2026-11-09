@@ -1,0 +1,36 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sea-it-jobs"
+version = "0.1.0"
+description = "Auditable daily Lever job snapshots for Vietnam and Singapore"
+requires-python = ">=3.11,<3.14"
+dependencies = [
+  "requests>=2.32,<3", "duckdb>=1.2,<2", "python-dotenv>=1,<2",
+  "dbt-core>=1.12,<1.13", "dbt-duckdb>=1.11,<1.12",
+  "streamlit>=1.41,<2", "pandas>=2.2,<3", "plotly>=5.24,<7",
+  "Jinja2>=3.1,<4", "PyYAML>=6,<7",
+]
+
+[project.optional-dependencies]
+cloud = ["google-cloud-storage>=2.19,<4", "google-cloud-bigquery>=3.29,<4", "dbt-bigquery>=1.12,<1.13"]
+dev = ["pytest>=8,<10", "responses>=0.25,<1", "ruff>=0.9,<1", "pyyaml>=6,<7"]
+databricks = ["databricks-sdk>=0.72,<1"]
+
+[project.scripts]
+sea-it-jobs = "sea_it_jobs.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/sea_it_jobs"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]

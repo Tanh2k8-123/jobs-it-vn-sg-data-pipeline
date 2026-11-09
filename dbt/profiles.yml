@@ -1,0 +1,17 @@
+tech_jobs:
+  target: "{{ env_var('DBT_TARGET', 'local') }}"
+  outputs:
+    local:
+      type: duckdb
+      path: "{{ env_var('DUCKDB_PATH', '../data/local/warehouse.duckdb') }}"
+      schema: analytics
+      threads: 2
+    bigquery:
+      type: bigquery
+      method: oauth
+      project: "{{ env_var('GCP_PROJECT_ID', 'configure-gcp-project') }}"
+      dataset: "{{ env_var('BQ_ANALYTICS_DATASET', 'tech_jobs_analytics') }}"
+      location: "{{ env_var('GCP_LOCATION', 'asia-southeast1') }}"
+      threads: 2
+      job_execution_timeout_seconds: 300
+      maximum_bytes_billed: 1000000000

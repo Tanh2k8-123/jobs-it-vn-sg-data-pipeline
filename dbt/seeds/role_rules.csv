@@ -1,0 +1,7 @@
+priority,role_category,title_pattern
+10,AI & Machine Learning,"machine learning|data scientis|artificial intelligence|deep learning|computer vision|(^|[^a-z])(ai|ml|nlp|llm)([^a-z]|$)"
+20,Data Engineering & Analytics,"data engineer|analytics engineer|data analy|business intelligence|(^|[^a-z])(bi engineer|bi developer)([^a-z]|$)"
+30,DevOps & Infrastructure,"devops|site reliability|platform engineer|cloud engineer|infrastructure engineer|(^|[^a-z])sre([^a-z]|$)"
+40,Quality Assurance,"quality assurance|quality engineer|test engineer|automation test|software test|(^|[^a-z])(qa|sdet)([^a-z]|$)"
+50,Software Engineering,"software engineer|software develop|backend|back.end|frontend|front.end|full[ -]?stack|mobile develop|mobile engineer|android|ios develop|ios engineer|engineering manager|technical lead|tech lead"
+60,Other IT,"security engineer|cybersecurity|systems engineer|system administrator|network engineer|it support|technical support engineer|solutions architect|it project manager|project manager.*it industry"

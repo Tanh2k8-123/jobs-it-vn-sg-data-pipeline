@@ -1,0 +1,181 @@
+[
+  {
+    "audited_at": "2026-11-04T13:54:59.618669+00:00",
+    "board_slug": "shopback-2",
+    "company_name": "ShopBack",
+    "countries": {
+      "AU": 2,
+      "CN": 13,
+      "HK": 5,
+      "ID": 2,
+      "KR": 2,
+      "MY": 7,
+      "PH": 1,
+      "SG": 22,
+      "TH": 1,
+      "TW": 4,
+      "US": 17,
+      "VN": 4
+    },
+    "fields": [
+      "additional",
+      "additionalPlain",
+      "applyUrl",
+      "categories",
+      "country",
+      "createdAt",
+      "description",
+      "descriptionBody",
+      "descriptionBodyPlain",
+      "descriptionPlain",
+      "hostedUrl",
+      "id",
+      "lists",
+      "opening",
+      "openingPlain",
+      "text",
+      "workplaceType"
+    ],
+    "locations": {
+      "Bangkok, Thailand": 1,
+      "Chicago, Illinois": 3,
+      "Ho Chi Minh, Vietnam": 4,
+      "Hong Kong, Hong Kong": 5,
+      "Jakarta, Indonesia": 2,
+      "Kuala Lumpur, Malaysia": 7,
+      "Manila, Philippines": 1,
+      "New York City, New York": 6,
+      "San Francisco, California": 1,
+      "Seoul, South Korea": 2,
+      "Shenzhen, China": 13,
+      "Singapore, Singapore": 22,
+      "Sydney, Australia": 2,
+      "Taipei, Taiwan": 4,
+      "Texas, United States": 7
+    },
+    "missing_title_count": 0,
+    "multi_location_count": 2,
+    "page_count": 3,
+    "record_count": 80,
+    "status": "success"
+  },
+  {
+    "audited_at": "2026-11-04T13:55:05.413663+00:00",
+    "board_slug": "portcast",
+    "company_name": "Portcast",
+    "countries": {
+      "IN": 3,
+      "MX": 1,
+      "SG": 4,
+      "US": 1
+    },
+    "fields": [
+      "additional",
+      "additionalPlain",
+      "applyUrl",
+      "categories",
+      "country",
+      "createdAt",
+      "description",
+      "descriptionBody",
+      "descriptionBodyPlain",
+      "descriptionPlain",
+      "hostedUrl",
+      "id",
+      "lists",
+      "opening",
+      "openingPlain",
+      "text",
+      "workplaceType"
+    ],
+    "locations": {
+      "Bangalore": 2,
+      "Chicago": 1,
+      "Delhi": 1,
+      "Mexico City": 1,
+      "Singapore": 4
+    },
+    "missing_title_count": 0,
+    "multi_location_count": 9,
+    "page_count": 2,
+    "record_count": 9,
+    "status": "success"
+  },
+  {
+    "audited_at": "2026-11-04T13:55:11.614882+00:00",
+    "board_slug": "gradion",
+    "company_name": "GRADION",
+    "countries": {
+      "VN": 11
+    },
+    "fields": [
+      "additional",
+      "additionalPlain",
+      "applyUrl",
+      "categories",
+      "country",
+      "createdAt",
+      "description",
+      "descriptionBody",
+      "descriptionBodyPlain",
+      "descriptionPlain",
+      "hostedUrl",
+      "id",
+      "lists",
+      "opening",
+      "openingPlain",
+      "text",
+      "workplaceType"
+    ],
+    "locations": {
+      "Ho Chi Minh City": 11
+    },
+    "missing_title_count": 0,
+    "multi_location_count": 11,
+    "page_count": 2,
+    "record_count": 11,
+    "status": "success"
+  },
+  {
+    "audited_at": "2026-11-04T13:55:23.173366+00:00",
+    "board_slug": "GoToGroup",
+    "company_name": "GoTo Group",
+    "countries": {
+      "ID": 27,
+      "IN": 1,
+      "SG": 12
+    },
+    "fields": [
+      "additional",
+      "additionalPlain",
+      "applyUrl",
+      "categories",
+      "country",
+      "createdAt",
+      "description",
+      "descriptionBody",
+      "descriptionBodyPlain",
+      "descriptionPlain",
+      "hostedUrl",
+      "id",
+      "lists",
+      "opening",
+      "openingPlain",
+      "text",
+      "workplaceType"
+    ],
+    "locations": {
+      "Bengaluru": 1,
+      "Jakarta": 22,
+      "Samarinda": 1,
+      "Singapore": 12,
+      "Surabaya": 1,
+      "Tangerang": 3
+    },
+    "missing_title_count": 0,
+    "multi_location_count": 0,
+    "page_count": 2,
+    "record_count": 40,
+    "status": "success"
+  }
+]

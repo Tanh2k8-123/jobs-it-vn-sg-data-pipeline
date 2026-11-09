@@ -1,0 +1,48 @@
+id: tech_jobs_daily
+namespace: zoomcamp.tech_jobs
+description: Extract all boards, publish snapshots, build dbt marts, then report any failed source.
+concurrency:
+  limit: 1
+  behavior: QUEUE
+inputs:
+  - id: target
+    type: SELECT
+    defaults: local
+    values: [local, cloud]
+tasks:
+  - id: extract_and_validate
+    type: io.kestra.plugin.scripts.shell.Commands
+    taskRunner:
+      type: io.kestra.plugin.core.runner.Process
+    commands:
+      - cd /opt/tech-jobs && sea-it-jobs extract --run-id "{{ execution.id }}" --allow-partial
+  - id: publish_and_load
+    type: io.kestra.plugin.scripts.shell.Commands
+    taskRunner:
+      type: io.kestra.plugin.core.runner.Process
+    retry:
+      type: constant
+      interval: PT30S
+      maxAttempt: 3
+    commands:
+      - cd /opt/tech-jobs && sea-it-jobs load --run-id "{{ execution.id }}" --target "{{ inputs.target }}"
+  - id: dbt_build_and_tests
+    type: io.kestra.plugin.scripts.shell.Commands
+    taskRunner:
+      type: io.kestra.plugin.core.runner.Process
+    commands:
+      - cd /opt/tech-jobs && sea-it-jobs transform --target "{{ inputs.target }}"
+  - id: report_source_failures
+    type: io.kestra.plugin.scripts.shell.Commands
+    taskRunner:
+      type: io.kestra.plugin.core.runner.Process
+    commands:
+      - cd /opt/tech-jobs && sea-it-jobs check-run --run-id "{{ execution.id }}"
+triggers:
+  - id: daily
+    type: io.kestra.plugin.core.trigger.Schedule
+    cron: '0 7 * * *'
+    timezone: Asia/Ho_Chi_Minh
+    disabled: true
+    inputs:
+      target: local

@@ -1,0 +1,45 @@
+version: 2
+models:
+  - name: dim_company
+    columns:
+      - name: board_slug
+        tests: [unique, not_null]
+  - name: fct_job_snapshots
+    description: One posting per board per observed date from the latest complete successful run.
+    columns:
+      - name: snapshot_key
+        tests: [unique, not_null]
+      - name: job_id
+        tests: [not_null]
+      - name: role_category
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['Software Engineering', 'Data Engineering & Analytics', 'AI & Machine Learning', 'DevOps & Infrastructure', 'Quality Assurance', 'Other IT', 'Unclassified']
+      - name: board_slug
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_company')
+                field: board_slug
+  - name: bridge_job_country
+    columns:
+      - name: bridge_key
+        tests: [unique, not_null]
+      - name: country_code
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['VN', 'SG']
+  - name: mart_daily_overview
+    columns:
+      - name: snapshot_date
+        tests: [unique, not_null]
+  - name: mart_source_health
+    columns:
+      - name: snapshot_status
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['complete', 'unavailable']

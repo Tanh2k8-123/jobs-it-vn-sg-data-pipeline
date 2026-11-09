@@ -1,0 +1,20 @@
+name: tech_jobs
+version: '1.0.0'
+config-version: 2
+profile: tech_jobs
+model-paths: [models]
+seed-paths: [seeds]
+test-paths: [tests]
+macro-paths: [macros]
+clean-targets: [target, dbt_packages]
+models:
+  tech_jobs:
+    staging:
+      +materialized: view
+    intermediate:
+      +materialized: view
+    marts:
+      +materialized: table
+seeds:
+  tech_jobs:
+    +quote_columns: false

@@ -1,0 +1,83 @@
+services:
+  pipeline:
+    build: .
+    image: sea-it-jobs:local
+    profiles: [tools]
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      DATA_DIR: /app/data/local
+      DUCKDB_PATH: /app/data/local/warehouse.duckdb
+    volumes:
+      - ./data/local:/app/data/local
+  dashboard:
+    build: .
+    image: sea-it-jobs:local
+    entrypoint: [streamlit, run, dashboard/app.py, --server.address=0.0.0.0, --server.port=8501, --browser.gatherUsageStats=false]
+    environment:
+      DATA_DIR: /app/data/local
+      DASHBOARD_BACKEND: local
+    volumes:
+      - ./data/local:/app/data/local:ro
+    ports: ["127.0.0.1:8501:8501"]
+  postgres:
+    image: postgres:17.7-bookworm
+    profiles: [orchestration]
+    environment:
+      POSTGRES_DB: kestra
+      POSTGRES_USER: kestra
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-me-local-only}
+    volumes: [postgres-data:/var/lib/postgresql/data]
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U kestra -d kestra"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+  kestra:
+    build:
+      context: .
+      dockerfile: orchestration/kestra/Dockerfile
+    profiles: [orchestration]
+    user: root
+    command: server standalone
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      DATA_DIR: /opt/tech-jobs/data/local
+      DUCKDB_PATH: /opt/tech-jobs/data/local/warehouse.duckdb
+      KESTRA_CONFIGURATION: |
+        datasources:
+          postgres:
+            url: jdbc:postgresql://postgres:5432/kestra
+            driverClassName: org.postgresql.Driver
+            username: kestra
+            password: ${POSTGRES_PASSWORD:-change-me-local-only}
+        kestra:
+          server:
+            basicAuth:
+              username: ${KESTRA_USER:-admin@example.com}
+              password: ${KESTRA_PASSWORD:-ChangeMe123456!}
+          repository:
+            type: postgres
+          queue:
+            type: postgres
+          storage:
+            type: local
+            local:
+              basePath: /app/storage
+          tasks:
+            tmpDir:
+              path: /tmp/kestra-wd/tmp
+          url: http://localhost:8080/
+    volumes:
+      - kestra-data:/app/storage
+      - ./data/local:/opt/tech-jobs/data/local
+    ports: ["127.0.0.1:8080:8080"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+volumes:
+  postgres-data:
+  kestra-data:

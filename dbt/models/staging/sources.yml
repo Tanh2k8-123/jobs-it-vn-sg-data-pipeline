@@ -1,0 +1,10 @@
+version: 2
+sources:
+  - name: lever
+    database: "{{ target.database }}"
+    schema: "{{ 'raw' if target.type == 'duckdb' else env_var('BQ_RAW_DATASET', 'tech_jobs_raw') }}"
+    tables:
+      - name: raw_postings
+        description: One original posting per board, extraction run and source job id.
+      - name: ingestion_runs
+        description: Committed extraction metadata, including failed and empty runs.
