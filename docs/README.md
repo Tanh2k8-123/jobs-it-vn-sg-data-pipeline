@@ -10,6 +10,7 @@ Start with the project [README](../README.md) for the problem, architecture diag
 | [Runbook](runbook.md) | Run stages, replay snapshots and recover from failures |
 | [Source audit](source-audit.md) | Inspect the recorded source coverage and field quality |
 | [Validation](validation.md) | Check executed tests and the limits of available evidence |
+| [Live deployment](databricks-deployment.md) | Inspect verified Databricks resources, runs, schedule and data |
 | [Project review](project-review.md) | Compare implementation evidence with the capstone rubric |
 | [Submission checklist](submission-checklist.md) | Prepare deployment, dashboard and peer-review evidence |
 
@@ -30,6 +31,8 @@ docs/
 ├── architecture.md
 ├── runbook.md
 ├── validation.md
+├── databricks-deployment.md
+├── databricks-deployment.json
 ├── source-audit.md
 ├── source-audit.json
 ├── project-review.md

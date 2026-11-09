@@ -7,27 +7,28 @@ Use the supplied rubric and your cohort's final instructions. Code and local suc
 - [ ] Check cohort registration, project deadlines and peer-review requirements. The supplied brief requires three peer reviews and describes extra points separately.
 - [x] Create a dedicated repository whose root contains `pyproject.toml`, `databricks.yml` and README.
 - [ ] Review the code and explain pagination, daily snapshot selection and counting yourself. Follow the course's originality rules; generated code still needs your understanding.
-- [ ] Keep `.env`, credentials, raw data, virtual environments and Terraform state out of Git.
+- [x] Keep `.env`, credentials, raw data, virtual environments and Terraform state out of Git.
 - [ ] Run tests, lint, SQL rendering and setup from a fresh source checkout.
 - [ ] Run the source audit and review real titles and locations.
 
 ## Prove the cloud pipeline
 
-- [ ] Deploy the Databricks bundle, or the optional GCP infrastructure.
-- [ ] Save sanitized evidence of schemas, storage and Job resources created from code.
-- [ ] Run a complete fresh-data pipeline: API → lake files → Bronze/raw → transformed tables → quality checks.
-- [ ] Show actual warehouse layout and explain date/source filters. Databricks liquid clustering is an alternative to static partitioning; do not claim both.
-- [ ] Demonstrate daily ingestion automation. Volume mode needs a scheduled collector/upload/Job command.
-- [ ] Explain how to recover after API, upload and transformation failures.
+- [x] Deploy the Databricks bundle, or the optional GCP infrastructure.
+- [x] Save sanitized evidence of schemas, storage and Job resources created from code.
+- [x] Run a complete fresh-data pipeline: API → lake files → Bronze/raw → transformed tables → quality checks.
+- [x] Show actual warehouse layout and explain date/source filters. Databricks liquid clustering is an alternative to static partitioning; do not claim both.
+- [x] Demonstrate daily ingestion automation. The verified API-mode schedule is active; Volume mode would need a scheduled collector/upload/Job command.
+- [x] Document recovery after API, upload and transformation failures.
 
 ## Prove the dashboard
 
-- [ ] Collect at least two real observation dates. Replaying old files does not create new dates.
-- [ ] Include at least two meaningful tiles: a categorical chart and a time-series chart.
-- [ ] Show titles, observation dates, source coverage and counting definitions.
-- [ ] Explain country overlap and unavailable values. Keep synthetic demo evidence separate.
-- [ ] Publish the report and verify access with a reviewer-equivalent account.
-- [ ] Add the actual report URL, screenshots and architecture to README. A screenshot alone may not satisfy interactive-access requirements.
+- [x] Collect at least two real observation dates. Six dates were verified; replay does not create new dates.
+- [x] Include at least two meaningful tiles: a categorical chart and a time-series chart.
+- [x] Include titles, observation dates, source coverage and counting definitions in the dashboard asset.
+- [x] Explain country overlap and unavailable values. Keep synthetic demo evidence separate.
+- [x] Publish the dashboard and add its actual URL and architecture to README.
+- [ ] Verify access with a reviewer-equivalent account.
+- [ ] Capture current Databricks dashboard screenshots for submission evidence. A screenshot alone may not satisfy interactive-access requirements.
 
 ## Submit
 

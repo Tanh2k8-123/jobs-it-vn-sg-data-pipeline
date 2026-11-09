@@ -12,7 +12,9 @@
 
 Local/GCP runs use `dbt build`. Databricks renders the same 19 SQL model files and executes them with Spark, then runs 18 shared integrity queries. It does **not** run `dbt build` in the notebook. Three seeds provide company, location and title rules.
 
-The default Databricks path collects locally because Free Edition can restrict outbound network access. `source_mode=api` works only if the workspace can reach Lever. See [Free Edition limitations](https://docs.databricks.com/aws/en/getting-started/free-edition-limitations).
+The verified workspace uses `source_mode=api`: the Job collects from Lever directly. Free Edition can restrict outbound access, so a local collector/upload path remains available with `source_mode=volume`. Test actual workspace connectivity; see [Free Edition limitations](https://docs.databricks.com/aws/en/getting-started/free-edition-limitations).
+
+The bundle also manages the JSON dashboard asset in `databricks/dashboards/`. Its fifth task refreshes the published dashboard only after quality checks pass. Resource names use the same schema prefix as notebook parameters; development-mode schema prefixes are intentionally disabled.
 
 ## Source contract
 

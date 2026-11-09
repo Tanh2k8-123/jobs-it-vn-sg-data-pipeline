@@ -2,6 +2,19 @@
 
 Evidence is separated into checks executed during this revision, earlier recorded checks and account-specific steps still missing. Offline rendering and mocks do not prove cloud deployment.
 
+## Authenticated Databricks verification: 2026-11-09
+
+The project is now deployed and verified on the real workspace. See [live deployment evidence](databricks-deployment.md) and its sanitized JSON record for resource IDs, query results and the successful five-task run.
+
+- Official CLI v1.24.0 installed from a checksum-verified release and authenticated through OAuth.
+- Authenticated bundle validation passed. The reviewed deployment preserved schemas, Volume, Job and dashboard; zero resources were deleted.
+- Fresh direct-API run `732812466979937` succeeded through ingestion, Spark transformations, 18 integrity checks, coverage/freshness checks and dashboard refresh.
+- Live SQL returned six observation dates, latest count 29 and 4/4 source coverage. Delta format and liquid-clustering keys were confirmed.
+- The dashboard was published using the existing ID and viewer credentials; daily 07:00 Vietnam-time API collection remains active.
+- Local regression checks passed: 38 tests and Ruff.
+
+The local and historical records below precede workspace authentication. They are retained as earlier evidence rather than the current deployment status.
+
 ## English documentation revision: 2026-11-09
 
 Environment: Windows, Python 3.12 and the dependencies in `uv.lock`. Setup used `uv sync --frozen --extra cloud --extra dev --extra databricks`.
@@ -12,7 +25,7 @@ Environment: Windows, Python 3.12 and the dependencies in `uv.lock`. Setup used 
 | Final lint, tests and documentation checks | Passed; details below |
 | Docker Compose configuration | Passed |
 | Docker runtime | Not available: Linux Docker engine pipe absent |
-| Terraform / Databricks CLI in this shell | Not installed; no authenticated deployment performed |
+| CLI status during the initial local phase | Terraform unavailable locally; Databricks CLI installed and authenticated in the later live phase |
 
 This revision translates documentation, source comments, CLI messages, bundle descriptions and notebook explanations; replaces personal setup paths/hosts; and aligns lint commands. It preserves ingestion and metric rules. Public documentation covers architecture, operations, deployment and validation.
 
@@ -99,9 +112,9 @@ The BigQuery compiler injects anonymous credentials only into the compiler and r
 
 ## Not yet demonstrated
 
-- An authenticated Databricks `bundle validate`/deploy, successful real Job, scheduled fresh collection or hosted dashboard access.
+- Published-dashboard access from a reviewer-equivalent account outside the current deployment principal.
 - Real GCP plan/apply, GCS writes, BigQuery loads or cloud dbt build; no account credentials are used by offline checks.
 - Docker image builds, live containers or a live Kestra DAG in this environment.
 - A published Looker Studio report, live API/cloud quick-start reproduction from a fresh clone, cohort submission or peer reviews.
 
-Confirm catalog permissions, Free Edition API access, serverless dependencies and dashboard sharing in your actual workspace. Follow [Databricks setup](deployment/databricks.md), then complete the [submission checklist](submission-checklist.md).
+Catalog access, direct Lever connectivity and serverless execution were confirmed in the deployed workspace. Other accounts still need to verify their own permissions/network access, and reviewer access remains an explicit check. Follow [Databricks setup](deployment/databricks.md), then complete the [submission checklist](submission-checklist.md).

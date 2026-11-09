@@ -14,6 +14,14 @@ Company career pages change every day. Manual checks make it hard to compare pos
 
 **Scope:** public Lever postings from monitored companies, not the entire job market. One posting can advertise several vacancies; a disappearing posting does not prove a hire.
 
+## Live deployment
+
+- [Published Databricks dashboard](https://dbc-63d22f94-de5b.cloud.databricks.com/dashboardsv3/01f1d86a4cca1c06a507828d58ab629f/published?o=7474648485286956)
+- [Verified successful pipeline run](https://dbc-63d22f94-de5b.cloud.databricks.com/?o=7474648485286956#job/468351600295439/run/732812466979937)
+- [Deployment evidence](docs/databricks-deployment.md): five tasks succeeded, active 07:00 daily collection, six real observation dates and full source coverage.
+
+Verified on 2026-11-09: **29 distinct technology postings**, 9 linked to VN and 24 to SG, with 4/4 sources complete. Four postings link to both countries. Dashboard viewing requires appropriate Databricks access; publication preserves existing permissions.
+
 ## Architecture
 
 ```mermaid
@@ -28,7 +36,7 @@ flowchart LR
     C --> I[Local: DuckDB to dbt to CSV to Streamlit]
 ```
 
-The default cloud path collects on your machine, uploads to a Volume and triggers a four-task Databricks Job. Direct API collection inside Databricks is also supported when workspace network access allows it. See [architecture and data rules](docs/architecture.md).
+The deployed Databricks Job collects directly from Lever, saves snapshots in a Volume and builds the analytical tables. A local collector/upload path is available when workspace network access blocks Lever. See [architecture and data rules](docs/architecture.md).
 
 | Tool | Its job in this project |
 |---|---|
@@ -37,7 +45,7 @@ The default cloud path collects on your machine, uploads to a Volume and trigger
 | Delta Lake | Store tables with transactional writes |
 | Spark SQL | Build normalized data and daily metrics on Databricks |
 | Databricks bundle / Jobs | Define resources as code and run notebook tasks in order |
-| AI/BI dashboard | Visualize Gold tables; setup queries are included |
+| AI/BI dashboard | Visualize Gold tables using a versioned dashboard asset |
 | DuckDB / dbt / Streamlit | Run the same business rules and a dashboard locally |
 
 An optional [GCP implementation](docs/optional/gcp.md) uses GCS, BigQuery, Terraform, Kestra and Looker Studio.
@@ -89,9 +97,9 @@ Demo data stays in `data/demo/` and is labeled synthetic. Its dates are fixtures
 
 ### Move to Databricks
 
-Follow the [Databricks setup](docs/deployment/databricks.md): install the CLI, sign in, deploy the bundle, then collect/upload/trigger the Job. Create charts with the [dashboard guide](docs/deployment/dashboard.md).
+Follow the [Databricks setup](docs/deployment/databricks.md): install the CLI, sign in, review the deployment plan, deploy the bundle and run the Job. The bundle includes the [dashboard](docs/deployment/dashboard.md).
 
-The bundle defines three schemas, a managed Volume and four tasks: `setup → ingest_bronze → build_silver_gold → quality_checks`. Its daily 07:00 Vietnam-time schedule starts paused. In Volume mode, the collector must also be scheduled; running only the Job does not fetch new data.
+The bundle defines three schemas, a managed Volume, a dashboard and five tasks: `setup → ingest_bronze → build_silver_gold → quality_checks → refresh_dashboard`. The verified deployment uses API collection and runs daily at 07:00 Vietnam time. Pause the schedule before testing a new workspace. In Volume mode, schedule the collector too; running only the Job does not fetch new data.
 
 ## Read the numbers correctly
 
@@ -112,6 +120,7 @@ The source roster in `config/boards.csv` includes ShopBack, Portcast, GRADION an
 | [Runbook](docs/runbook.md) | Commands, retries, replay and troubleshooting |
 | [Databricks setup](docs/deployment/databricks.md) | Authentication, deployment, execution and scheduling |
 | [Validation](docs/validation.md) | Executed checks and missing deployment evidence |
+| [Live deployment evidence](docs/databricks-deployment.md) | Actual Job, dashboard, schedule and warehouse query results |
 | [Project review](docs/project-review.md) | Assessment against the supplied Zoomcamp rubric |
 | [Submission checklist](docs/submission-checklist.md) | Evidence needed before peer review |
 | [GCP](docs/optional/gcp.md) / [Kestra](docs/optional/kestra.md) / [Looker Studio](docs/optional/looker-studio.md) | Optional alternative deployment |
@@ -129,4 +138,4 @@ docker compose config --quiet
 
 Tests cover API failures, pagination, snapshot corruption, replay, multi-country counting, source coverage and shared SQL rendering. Cloud clients are mocked. CI also validates Terraform. See [validation](docs/validation.md) for evidence and limits.
 
-**Status:** local execution and offline cloud checks are documented. A successful authenticated Databricks deployment, scheduled collection and reviewer-accessible hosted dashboard still need evidence. The repository alone does not establish cloud deployment or course completion.
+**Status:** deployed and verified on Databricks Free Edition. Direct API ingestion, Bronze/Silver/Gold processing, quality checks and dashboard refresh succeeded in one Job run. Daily collection is enabled. Reviewer-account access and course submission remain separate checks.

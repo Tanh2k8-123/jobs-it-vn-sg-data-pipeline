@@ -1,0 +1,159 @@
+{
+  "verified_at": "2026-11-09T09:55:46.515956+07:00",
+  "workspace_host": "https://dbc-63d22f94-de5b.cloud.databricks.com",
+  "job_id": 468351600295439,
+  "run_id": 732812466979937,
+  "run_url": "https://dbc-63d22f94-de5b.cloud.databricks.com/?o=7474648485286956#job/468351600295439/run/732812466979937",
+  "run_started_at": "2026-11-09T02:49:31.017000+00:00",
+  "run_completed_at": "2026-11-09T02:53:33.920000+00:00",
+  "result": "SUCCESS",
+  "task_results": {
+    "ingest_bronze": "SUCCESS",
+    "setup": "SUCCESS",
+    "refresh_dashboard": "SUCCESS",
+    "build_silver_gold": "SUCCESS",
+    "quality_checks": "SUCCESS"
+  },
+  "schedule": {
+    "pause_status": "UNPAUSED",
+    "quartz_cron_expression": "0 0 7 * * ?",
+    "timezone_id": "Asia/Ho_Chi_Minh"
+  },
+  "job_parameters": {
+    "source_mode": "api",
+    "require_fresh": "true"
+  },
+  "dashboard_id": "01f1d86a4cca1c06a507828d58ab629f",
+  "dashboard_url": "https://dbc-63d22f94-de5b.cloud.databricks.com/dashboardsv3/01f1d86a4cca1c06a507828d58ab629f/published?o=7474648485286956",
+  "dashboard_matches_versioned_asset": true,
+  "dashboard_widget_count": 8,
+  "dashboard_dataset_count": 5,
+  "embed_credentials": false,
+  "sql_warehouse_id": "eb524843a11f6c65",
+  "catalog": "workspace",
+  "schemas": [
+    "tech_jobs_bronze",
+    "tech_jobs_silver",
+    "tech_jobs_gold"
+  ],
+  "volume_path": "/Volumes/workspace/tech_jobs_bronze/raw_snapshots",
+  "live_query_results": {
+    "overview": {
+      "state": "SUCCEEDED",
+      "rows": [
+        {
+          "snapshot_date": "2026-11-04",
+          "tech_postings": "37",
+          "successful_boards": "4",
+          "expected_boards": "4",
+          "coverage_ratio": "1.0000000000000000"
+        },
+        {
+          "snapshot_date": "2026-11-05",
+          "tech_postings": "37",
+          "successful_boards": "4",
+          "expected_boards": "4",
+          "coverage_ratio": "1.0000000000000000"
+        },
+        {
+          "snapshot_date": "2026-11-06",
+          "tech_postings": "37",
+          "successful_boards": "4",
+          "expected_boards": "4",
+          "coverage_ratio": "1.0000000000000000"
+        },
+        {
+          "snapshot_date": "2026-11-07",
+          "tech_postings": "31",
+          "successful_boards": "4",
+          "expected_boards": "4",
+          "coverage_ratio": "1.0000000000000000"
+        },
+        {
+          "snapshot_date": "2026-11-08",
+          "tech_postings": "29",
+          "successful_boards": "4",
+          "expected_boards": "4",
+          "coverage_ratio": "1.0000000000000000"
+        },
+        {
+          "snapshot_date": "2026-11-09",
+          "tech_postings": "29",
+          "successful_boards": "4",
+          "expected_boards": "4",
+          "coverage_ratio": "1.0000000000000000"
+        }
+      ]
+    },
+    "countries": {
+      "state": "SUCCEEDED",
+      "rows": [
+        {
+          "snapshot_date": "2026-11-09",
+          "country_code": "SG",
+          "tech_postings": "24"
+        },
+        {
+          "snapshot_date": "2026-11-09",
+          "country_code": "VN",
+          "tech_postings": "9"
+        }
+      ]
+    },
+    "source_health": {
+      "state": "SUCCEEDED",
+      "rows": [
+        {
+          "snapshot_date": "2026-11-09",
+          "company_name": "GRADION",
+          "snapshot_status": "complete",
+          "latest_attempt_status": "success",
+          "record_count": "6"
+        },
+        {
+          "snapshot_date": "2026-11-09",
+          "company_name": "GoTo Group",
+          "snapshot_status": "complete",
+          "latest_attempt_status": "success",
+          "record_count": "41"
+        },
+        {
+          "snapshot_date": "2026-11-09",
+          "company_name": "Portcast",
+          "snapshot_status": "complete",
+          "latest_attempt_status": "success",
+          "record_count": "9"
+        },
+        {
+          "snapshot_date": "2026-11-09",
+          "company_name": "ShopBack",
+          "snapshot_status": "complete",
+          "latest_attempt_status": "success",
+          "record_count": "79"
+        }
+      ]
+    },
+    "bronze_layout": {
+      "state": "SUCCEEDED",
+      "rows": [
+        {
+          "name": "workspace.tech_jobs_bronze.snapshot_envelopes",
+          "format": "delta",
+          "clusteringColumns": "[\"snapshot_date\",\"board_slug\"]",
+          "numFiles": "13"
+        }
+      ]
+    },
+    "gold_layout": {
+      "state": "SUCCEEDED",
+      "rows": [
+        {
+          "name": "workspace.tech_jobs_gold.mart_daily_country",
+          "format": "delta",
+          "clusteringColumns": "[\"snapshot_date\"]",
+          "numFiles": "1"
+        }
+      ]
+    }
+  }
+}

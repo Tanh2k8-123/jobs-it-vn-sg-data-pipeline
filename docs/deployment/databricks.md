@@ -13,8 +13,8 @@ A **Volume** stores files; a **Delta table** stores transactional table data. Br
 
 | Mode | Where collection happens | Use it when |
 |---|---|---|
-| `volume` (default) | Your machine collects and uploads snapshots | The reliable starting path when notebook internet access is restricted |
-| `api` | A notebook calls Lever and saves files to the Volume | You have confirmed the workspace can reach Lever |
+| `api` (deployed default) | A notebook calls Lever and saves files to the Volume | The workspace can reach Lever; confirmed in the deployed project |
+| `volume` (fallback) | Your machine collects and uploads snapshots | Notebook internet access blocks Lever |
 
 Free Edition uses serverless compute and can restrict outbound access. Check your actual account: [official limitations](https://docs.databricks.com/aws/en/getting-started/free-edition-limitations).
 
@@ -37,13 +37,16 @@ The bundle gets its workspace from `--profile` rather than a personal URL in sou
 
 ```bash
 databricks bundle validate --profile tech-jobs-free
+databricks bundle plan --profile tech-jobs-free
 databricks bundle deploy --profile tech-jobs-free
 databricks bundle summary --profile tech-jobs-free
 ```
 
+For a new workspace, first set `schedule_pause_status` to `PAUSED` in `databricks.yml`, or pass `--var schedule_pause_status=PAUSED` to validation, plan and deployment. The checked-in defaults preserve this project's verified API collection and active schedule. Review the plan before deployment; it must not recreate existing schemas/Volumes or delete the dashboard.
+
 The default catalog is `workspace`. If yours differs, change `variables.catalog.default` in `databricks.yml` before deployment. Keep that catalog consistent in upload paths and dashboard SQL.
 
-The bundle defines three schemas, one managed Volume and a Job with four sequential serverless notebook tasks:
+The bundle looks up the SQL warehouse named `Serverless Starter Warehouse`. Override `warehouse_id` with your warehouse ID if its name differs. It defines three schemas, one managed Volume, a dashboard and five sequential tasks:
 
 | Task | Notebook | Result |
 |---|---|---|
@@ -51,12 +54,23 @@ The bundle defines three schemas, one managed Volume and a Job with four sequent
 | `ingest_bronze` | `01_ingest_bronze.py` | Validate snapshots and load Bronze |
 | `build_silver_gold` | `02_build_silver_gold.py` | Build normalized and reporting models |
 | `quality_checks` | `03_quality_checks.py` | Check integrity, source coverage and freshness |
+| `refresh_dashboard` | Dashboard task | Refresh the published dashboard after checks pass |
 
 Notebook libraries are declared in the bundle. Spark is supplied by Databricks; do not install PySpark. The notebook renders 19 shared SQL models and 18 integrity checks; it does not run `dbt build`. Read the [storage design](../architecture.md#snapshots-and-loading) for atomic Bronze envelopes and replay behavior.
 
 Find the deployed Job ID in `bundle summary` or its URL under **Jobs & Pipelines**. It is the number after `/jobs/`.
 
-## 4. Collect, upload and run
+## 4. Run the pipeline
+
+The verified workspace supports direct API collection:
+
+```bash
+databricks bundle run tech_jobs_daily --profile tech-jobs-free
+```
+
+This uses the Job's default `source_mode=api` and `require_fresh=true`, then refreshes the dashboard. Keep the legacy target name `dev` to reuse the existing deployment state. It intentionally has no development mode, so schema names remain consistent with notebook and Volume paths.
+
+### Fallback: collect locally and upload
 
 Replace `JOB_ID` with that number:
 
@@ -123,14 +137,14 @@ databricks bundle run tech_jobs_daily --profile tech-jobs-free --params source_m
 
 If blocked, continue with local collection/upload. Do not assume every Free Edition account has the same outbound access.
 
-## 7. Enable daily collection
+## 7. Manage daily collection
 
-The bundle includes a **paused** 07:00 `Asia/Ho_Chi_Minh` schedule. Enable automation only after a successful manual run.
+The verified deployment has an **active** 07:00 `Asia/Ho_Chi_Minh` schedule. For a new workspace, keep `schedule_pause_status=PAUSED` until a manual run succeeds.
 
-- **API mode:** set the Job's default `source_mode` to `api` in `databricks.yml`, then unpause its schedule. A one-off `--params` does not change the default.
+- **API mode:** keep the `source_mode` variable set to `api`. After a successful manual run, set `schedule_pause_status=UNPAUSED` and redeploy. A one-off `--params` does not change the default.
 - **Volume mode:** schedule `run_databricks.py --collect --job-id JOB_ID` on your machine or authenticated CI. The collector uploads and triggers the Job. Scheduling only the Job rereads saved snapshots and cannot collect new API data.
 
-The collector host must be running and authentication valid. Keep `require_fresh=true` for daily operation. Development-mode deployment can pause schedules again; check after redeployment and save the intended operational configuration in Git. See [deployment modes](https://docs.databricks.com/aws/en/dev-tools/bundles/deployment-modes).
+In Volume mode, the collector host must be running and authentication valid. Keep `require_fresh=true` for daily operation. The bundle does not enable development mode because its automatic name prefixes would change the schemas independently of notebook parameters. See [deployment modes](https://docs.databricks.com/aws/en/dev-tools/bundles/deployment-modes).
 
 ## Evidence and troubleshooting
 

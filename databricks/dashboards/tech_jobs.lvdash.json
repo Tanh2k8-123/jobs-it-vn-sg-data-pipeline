@@ -1,0 +1,525 @@
+{
+  "datasets": [
+    {
+      "name": "overview",
+      "displayName": "Overview",
+      "queryLines": [
+        "SELECT * FROM `workspace`.`tech_jobs_gold`.looker_current_overview"
+      ]
+    },
+    {
+      "name": "countries",
+      "displayName": "Countries",
+      "queryLines": [
+        "SELECT * FROM `workspace`.`tech_jobs_gold`.looker_current_country"
+      ]
+    },
+    {
+      "name": "roles",
+      "displayName": "Roles",
+      "queryLines": [
+        "SELECT * FROM `workspace`.`tech_jobs_gold`.looker_current_roles"
+      ]
+    },
+    {
+      "name": "trend",
+      "displayName": "Trend",
+      "queryLines": [
+        "SELECT * FROM `workspace`.`tech_jobs_gold`.mart_daily_country ORDER BY snapshot_date, country_code"
+      ]
+    },
+    {
+      "name": "health",
+      "displayName": "Health",
+      "queryLines": [
+        "SELECT * FROM `workspace`.`tech_jobs_gold`.looker_current_source_health ORDER BY company_name"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "tech_jobs",
+      "displayName": "Tech jobs overview",
+      "layout": [
+        {
+          "widget": {
+            "name": "intro",
+            "multilineTextboxSpec": {
+              "lines": [
+                "# Tech Jobs Analytics — Vietnam & Singapore\n",
+                "Observed public technology postings at selected companies. A posting linked to both countries counts once overall and once in each country. Check the observation date and source status before comparing days."
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "tech_postings",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "overview",
+                  "fields": [
+                    {
+                      "name": "tech_postings",
+                      "expression": "MAX(`tech_postings`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "tech_postings"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Distinct tech postings · VN or SG",
+                "showDescription": false,
+                "description": ""
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "recruiting_companies",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "overview",
+                  "fields": [
+                    {
+                      "name": "recruiting_companies",
+                      "expression": "MAX(`recruiting_companies`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "recruiting_companies"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Recruiting companies",
+                "showDescription": false,
+                "description": ""
+              }
+            }
+          },
+          "position": {
+            "x": 2,
+            "y": 2,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "successful_boards",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "overview",
+                  "fields": [
+                    {
+                      "name": "successful_boards",
+                      "expression": "MAX(`successful_boards`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "successful_boards"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Sources with complete snapshots",
+                "showDescription": false,
+                "description": ""
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 2,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "country_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "countries",
+                  "fields": [
+                    {
+                      "name": "country_code",
+                      "expression": "`country_code`"
+                    },
+                    {
+                      "name": "tech_postings",
+                      "expression": "SUM(`tech_postings`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "country_code",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "tech_postings",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "country_code",
+                  "scale": {
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "VN",
+                        "color": "#187e78"
+                      },
+                      {
+                        "value": "SG",
+                        "color": "#d66a38"
+                      }
+                    ]
+                  }
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Technology postings by country",
+                "showDescription": false,
+                "description": ""
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 4,
+            "width": 3,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "role_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "roles",
+                  "fields": [
+                    {
+                      "name": "role_category",
+                      "expression": "`role_category`"
+                    },
+                    {
+                      "name": "country_code",
+                      "expression": "`country_code`"
+                    },
+                    {
+                      "name": "tech_postings",
+                      "expression": "SUM(`tech_postings`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "tech_postings",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "role_category",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "color": {
+                  "fieldName": "country_code",
+                  "scale": {
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "VN",
+                        "color": "#187e78"
+                      },
+                      {
+                        "value": "SG",
+                        "color": "#d66a38"
+                      }
+                    ]
+                  }
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Technology roles by country",
+                "showDescription": false,
+                "description": ""
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 4,
+            "width": 3,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "daily_trend",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "trend",
+                  "fields": [
+                    {
+                      "name": "snapshot_date",
+                      "expression": "`snapshot_date`"
+                    },
+                    {
+                      "name": "country_code",
+                      "expression": "`country_code`"
+                    },
+                    {
+                      "name": "tech_postings",
+                      "expression": "SUM(`tech_postings`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "snapshot_date",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "tech_postings",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "country_code",
+                  "scale": {
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "VN",
+                        "color": "#187e78"
+                      },
+                      {
+                        "value": "SG",
+                        "color": "#d66a38"
+                      }
+                    ]
+                  }
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Daily observed postings",
+                "showDescription": true,
+                "description": "History begins on the first real collection day."
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 9,
+            "width": 6,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "source_health",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "health",
+                  "fields": [
+                    {
+                      "name": "snapshot_date",
+                      "expression": "`snapshot_date`"
+                    },
+                    {
+                      "name": "company_name",
+                      "expression": "`company_name`"
+                    },
+                    {
+                      "name": "snapshot_status",
+                      "expression": "`snapshot_status`"
+                    },
+                    {
+                      "name": "record_count",
+                      "expression": "`record_count`"
+                    },
+                    {
+                      "name": "latest_attempt_status",
+                      "expression": "`latest_attempt_status`"
+                    },
+                    {
+                      "name": "last_success_at",
+                      "expression": "`last_success_at`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 1,
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "snapshot_date",
+                    "title": "Observation date",
+                    "displayName": "Observation date",
+                    "type": "date",
+                    "displayAs": "datetime",
+                    "visible": true,
+                    "order": 0
+                  },
+                  {
+                    "fieldName": "company_name",
+                    "title": "Company",
+                    "displayName": "Company",
+                    "type": "string",
+                    "displayAs": "string",
+                    "visible": true,
+                    "order": 1
+                  },
+                  {
+                    "fieldName": "snapshot_status",
+                    "title": "Snapshot",
+                    "displayName": "Snapshot",
+                    "type": "string",
+                    "displayAs": "string",
+                    "visible": true,
+                    "order": 2
+                  },
+                  {
+                    "fieldName": "record_count",
+                    "title": "Board postings",
+                    "displayName": "Board postings",
+                    "type": "integer",
+                    "displayAs": "number",
+                    "visible": true,
+                    "order": 3
+                  },
+                  {
+                    "fieldName": "latest_attempt_status",
+                    "title": "Latest attempt",
+                    "displayName": "Latest attempt",
+                    "type": "string",
+                    "displayAs": "string",
+                    "visible": true,
+                    "order": 4
+                  },
+                  {
+                    "fieldName": "last_success_at",
+                    "title": "Last success (UTC)",
+                    "displayName": "Last success (UTC)",
+                    "type": "datetime",
+                    "displayAs": "datetime",
+                    "visible": true,
+                    "order": 5
+                  }
+                ]
+              },
+              "invisibleColumns": [],
+              "allowHTMLByDefault": false,
+              "condensed": true,
+              "itemsPerPage": 10,
+              "withRowNumber": false,
+              "frame": {
+                "showTitle": true,
+                "title": "Observation date and source coverage",
+                "showDescription": false,
+                "description": ""
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 14,
+            "width": 6,
+            "height": 4
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    }
+  ]
+}

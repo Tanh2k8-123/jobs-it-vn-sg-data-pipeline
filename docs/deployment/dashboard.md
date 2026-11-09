@@ -1,6 +1,10 @@
 # Build the Databricks dashboard
 
-First run the Job successfully and verify its Gold tables. Open **Dashboards → Create dashboard**, select the serverless SQL warehouse, and add the datasets below. Replace `workspace` / `tech_jobs` if you changed the catalog or prefix. UI labels can vary.
+The bundle deploys the dashboard from `databricks/dashboards/tech_jobs.lvdash.json`. The Job's final task refreshes it only after the Gold tables pass quality checks. Use the existing dashboard instead of creating a duplicate.
+
+To publish the deployed asset after an update, use `databricks lakeview publish DASHBOARD_ID --profile tech-jobs-free`. Viewer credentials remain required (`embed_credentials: false`); deployment does not expand sharing permissions. Update the JSON asset if you change catalog/schema names in its queries.
+
+The dataset mapping below also supports manual recreation through **Dashboards → Create dashboard** using the serverless SQL warehouse. UI labels can vary.
 
 ## Datasets and tiles
 

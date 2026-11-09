@@ -16,8 +16,24 @@ variables:
   prefix:
     description: Project-specific prefix for Bronze, Silver and Gold schemas.
     default: tech_jobs
+  warehouse_id:
+    description: Existing serverless SQL warehouse for dashboard queries.
+    lookup:
+      warehouse: Serverless Starter Warehouse
+  source_mode:
+    description: Collect directly in Databricks, or read uploaded Volume snapshots.
+    default: api
+  schedule_pause_status:
+    description: Set PAUSED when testing a new workspace before enabling daily collection.
+    default: UNPAUSED
 
 resources:
+  dashboards:
+    tech_jobs_dashboard:
+      display_name: Tech Jobs Analytics — Vietnam & Singapore
+      file_path: ./databricks/dashboards/tech_jobs.lvdash.json
+      warehouse_id: ${var.warehouse_id}
+      embed_credentials: false
   schemas:
     bronze:
       catalog_name: ${var.catalog}
@@ -44,10 +60,10 @@ resources:
       schedule:
         quartz_cron_expression: '0 0 7 * * ?'
         timezone_id: Asia/Ho_Chi_Minh
-        pause_status: PAUSED
+        pause_status: ${var.schedule_pause_status}
       parameters:
         - name: source_mode
-          default: volume
+          default: ${var.source_mode}
         - name: require_fresh
           default: 'true'
       environments:
@@ -89,9 +105,14 @@ resources:
           notebook_task:
             notebook_path: ./databricks/notebooks/03_quality_checks.py
             base_parameters: *parameters
+        - task_key: refresh_dashboard
+          depends_on: [{task_key: quality_checks}]
+          dashboard_task:
+            dashboard_id: ${resources.dashboards.tech_jobs_dashboard.id}
+            warehouse_id: ${var.warehouse_id}
 
 targets:
   dev:
     default: true
-    # Run manually first; enable scheduling after verifying fresh daily collection.
-    mode: development
+    # Retain the deployed target/state path and canonical schema names.
+    # Do not enable development-mode prefixes: notebook and Volume paths share these names.

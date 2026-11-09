@@ -23,7 +23,13 @@ uv run sea-it-jobs check-run --run-id manual_001
 
 Use `--boards shopback-2` on `extract`/`pipeline` to collect a subset; other enabled sources can appear missing. `extract --allow-partial` lets an orchestrator publish failures before a final `check-run`; it does not make incomplete records valid. Generated run IDs combine UTC time and a random suffix.
 
-For Databricks after deployment:
+For the deployed Databricks API path:
+
+```bash
+databricks bundle run tech_jobs_daily --profile tech-jobs-free
+```
+
+If workspace network access requires local collection/upload, use:
 
 ```bash
 uv run python scripts/run_databricks.py --collect --job-id JOB_ID
