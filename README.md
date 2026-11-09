@@ -24,6 +24,10 @@ Company career pages change every day. Manual checks make it hard to compare pos
 
 Verified on 2026-11-09: **29 distinct technology postings**, 9 linked to VN and 24 to SG, with 4/4 sources complete. Four postings link to both countries. Dashboard viewing requires appropriate Databricks access; publication preserves existing permissions.
 
+![Published Databricks dashboard: KPIs and country/role charts](dashboard/screenshots/databricks-overview.jpg)
+
+Original Databricks screenshot supplied by the project owner. See [visual evidence](docs/databricks-deployment.md#visual-evidence) for the daily trend, source-health table and successful Job graph.
+
 ## Architecture
 
 ```mermaid

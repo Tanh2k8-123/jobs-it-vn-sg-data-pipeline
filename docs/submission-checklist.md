@@ -28,7 +28,8 @@ Use the supplied rubric and your cohort's final instructions. Code and local suc
 - [x] Explain country overlap and unavailable values. Keep synthetic demo evidence separate.
 - [x] Publish the dashboard and add its actual URL and architecture to README.
 - [ ] Verify access with a reviewer-equivalent account.
-- [ ] Capture current Databricks dashboard screenshots for submission evidence. A screenshot alone may not satisfy interactive-access requirements.
+- [x] Add original Databricks dashboard and successful Job screenshots for submission evidence. A screenshot alone may not satisfy interactive-access requirements.
+- [ ] Add a separate Bronze/Silver/Gold schema screenshot if required by the submission format.
 
 ## Submit
 

@@ -25,6 +25,24 @@ setup → ingest_bronze → build_silver_gold → quality_checks → refresh_das
 
 The [published dashboard](https://dbc-63d22f94-de5b.cloud.databricks.com/dashboardsv3/01f1d86a4cca1c06a507828d58ab629f/published?o=7474648485286956) retains its existing ID and matches the versioned JSON asset. It uses viewer credentials (`embed_credentials=false`). Existing access permissions were preserved; access from a reviewer-equivalent account has not been independently verified.
 
+## Visual evidence
+
+The project owner supplied these original Databricks JPEG screenshots on 2026-11-09. Files were copied byte-for-byte without image processing. File dimensions and SHA-256 checksums are recorded in the [evidence JSON](databricks-deployment.json).
+
+The published dashboard shows 29 distinct technology postings, four recruiting companies and four complete sources, with country and role charts:
+
+![Published Databricks dashboard overview](../dashboard/screenshots/databricks-overview.jpg)
+
+The trend covers 2026-11-04 through 2026-11-09. The source-health table renders all four company rows, including left-aligned posting counts and latest-attempt values:
+
+![Databricks daily trend and rendered source-health table](../dashboard/screenshots/databricks-trend-and-source-health.jpg)
+
+The Job graph shows all five tasks with a Succeeded status. The API-verifiable full pipeline run is linked above:
+
+![Five Databricks Job tasks succeeded](../dashboard/screenshots/databricks-job-success.jpg)
+
+These screenshots confirm the displayed dashboard and Job graph. They do not establish access from another user's account. A separate schema screenshot has not been supplied; schema and Delta-layout evidence was verified through authenticated APIs and SQL.
+
 ## Observed data
 
 Live queries returned six real observation dates, all with complete coverage:
@@ -60,4 +78,4 @@ For future deployments, run `bundle validate`, review `bundle plan`, then deploy
 
 On 2026-11-09, the table widget was migrated from a partial legacy v1 definition to the current v2 definition after a reported empty visualization. Its SQL returned four company rows and all six required columns. The repaired asset was deployed and republished using the same dashboard ID.
 
-The [dashboard-only refresh](https://dbc-63d22f94-de5b.cloud.databricks.com/?o=7474648485286956#job/468351600295439/run/295115851975887) succeeded. This partial run selected only `refresh_dashboard`; ingestion and quality tasks were intentionally not rerun. The original successful five-task pipeline evidence above remains separate. Regression checks now validate widget versions and selected-field bindings; the local suite passed 39 tests. Browser screenshot verification was unavailable.
+The [dashboard-only refresh](https://dbc-63d22f94-de5b.cloud.databricks.com/?o=7474648485286956#job/468351600295439/run/295115851975887) succeeded. This partial run selected only `refresh_dashboard`; ingestion and quality tasks were intentionally not rerun. The original successful five-task pipeline evidence above remains separate. Regression checks now validate widget versions and selected-field bindings; the local suite passed 39 tests. Automated browser capture was unavailable during the fix; the subsequent user-supplied screenshots above confirm that the table renders correctly.

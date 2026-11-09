@@ -2,11 +2,15 @@
 
 Evidence is separated into checks executed during this revision, earlier recorded checks and account-specific steps still missing. Offline rendering and mocks do not prove cloud deployment.
 
+## User-supplied visual evidence: 2026-11-09
+
+The project owner supplied two dashboard screenshots and one successful five-task Job screenshot. The [visual evidence](databricks-deployment.md#visual-evidence) confirms the KPIs, six-day country trend and rendered four-row source-health table. Original JPEG bytes are preserved, with dimensions/checksums in the evidence JSON. These are user-supplied screenshots, not automated browser captures. A schema screenshot and independent reviewer-account access verification remain outstanding.
+
 ## Source-health table correction: 2026-11-09
 
 The reported blank table used a partial legacy v1 widget definition. The source query itself succeeded with all six requested columns and four company rows. The JSON asset now uses the current table v2 column definition.
 
-The new regression test failed against the old `source_health` spec and passed after migration. Full local checks passed with **39 tests** and Ruff. Authenticated deployment updated only the dashboard, and the same dashboard ID was republished with six column bindings. Browser capture was unavailable in this environment; no visual screenshot verification is claimed. See the [table troubleshooting guide](deployment/dashboard.md#troubleshoot-an-empty-source-health-table).
+The new regression test failed against the old `source_health` spec and passed after migration. Full local checks passed with **39 tests** and Ruff. Authenticated deployment updated only the dashboard, and the same dashboard ID was republished with six column bindings. Automated browser capture was unavailable during that check; the later user-supplied images now provide visual confirmation. See the [table troubleshooting guide](deployment/dashboard.md#troubleshoot-an-empty-source-health-table).
 
 ## Repository review: 2026-11-09
 

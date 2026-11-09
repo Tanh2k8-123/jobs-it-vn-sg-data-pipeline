@@ -178,5 +178,41 @@
     "refresh_result": "SUCCESS",
     "browser_render_verified": false,
     "local_tests_passed": 39
+  },
+  "user_supplied_visual_evidence": {
+    "provided_on": "2026-11-09",
+    "source": "Original JPEG screenshots supplied by the project owner",
+    "observation_date_shown": "2026-11-09",
+    "images": [
+      {
+        "path": "dashboard/screenshots/databricks-overview.jpg",
+        "description": "Published dashboard KPIs and country/role charts",
+        "width": 1878,
+        "height": 716,
+        "sha256": "f43cc0996842ed56cf9f7dd0c8bddb7f17b4142183b995b9239f95a509d74853"
+      },
+      {
+        "path": "dashboard/screenshots/databricks-trend-and-source-health.jpg",
+        "description": "Daily trend and four-row source-health table",
+        "width": 1880,
+        "height": 662,
+        "sha256": "ff33470d6fdc7c394c0fe6b996e46a22cb3b74ba6ec58ed871d400716fe71a51"
+      },
+      {
+        "path": "dashboard/screenshots/databricks-job-success.jpg",
+        "description": "Five-task successful Job graph",
+        "width": 1823,
+        "height": 286,
+        "sha256": "73a9d0946764e3e0c0b73a657b26284844c7557334caf7e8d93caa8c7210abce"
+      }
+    ],
+    "overview_metrics_visible": true,
+    "six_observation_dates_visible": true,
+    "four_source_rows_visible": true,
+    "posting_count_and_attempt_values_left_aligned": true,
+    "all_five_job_tasks_show_succeeded": true,
+    "schema_screenshot_provided": false,
+    "independent_reviewer_access_verified": false,
+    "automated_browser_capture": false
   }
 }
