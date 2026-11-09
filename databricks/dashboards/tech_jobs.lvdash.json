@@ -456,11 +456,13 @@
                   },
                   {
                     "fieldName": "record_count",
-                    "displayName": "Board postings"
+                    "displayName": "Board postings",
+                    "contentAlignment": "center"
                   },
                   {
                     "fieldName": "latest_attempt_status",
-                    "displayName": "Latest attempt"
+                    "displayName": "Latest attempt",
+                    "contentAlignment": "center"
                   },
                   {
                     "fieldName": "last_success_at",
