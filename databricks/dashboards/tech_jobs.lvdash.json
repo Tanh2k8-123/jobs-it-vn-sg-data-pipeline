@@ -457,12 +457,12 @@
                   {
                     "fieldName": "record_count",
                     "displayName": "Board postings",
-                    "contentAlignment": "center"
+                    "contentAlignment": "left"
                   },
                   {
                     "fieldName": "latest_attempt_status",
                     "displayName": "Latest attempt",
-                    "contentAlignment": "center"
+                    "contentAlignment": "left"
                   },
                   {
                     "fieldName": "last_success_at",
